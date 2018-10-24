@@ -37,15 +37,17 @@ def chop_stuff( arr , size ):
 
 def prepare_images(urls = [],
                     dir_url =None,
-                    model = prepare_vgg16(), 
+                    model = None, 
                     save_name = 'Features.pkl'):
+    
     
     """
     model : keras model to use predict
     urls : list of complete paths to image files
     dir_url : should not contaon any sub folders evertytinh here should be files 
     """
-    
+    if model ==None  :
+        model = prepare_vgg16()
     if ( len(urls) == 0 and dir_url == None ):
         raise no_urls_given
     
