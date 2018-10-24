@@ -99,8 +99,9 @@ def process_dir( dir_url, save_name= None, return_mapping  = True , sub_part_siz
     p_no = 1
     mapping = dict()
     
-    for part in parts: 
+    for part in tqdm(parts):
         prepare_images( urls = part, save_name= save_name+ str(p_no))
         mapping[save_name+ str(p_no)] = part
         p_no += 1
-        
+    
+    return mapping 
