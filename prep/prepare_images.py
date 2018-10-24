@@ -82,6 +82,7 @@ def list_dir(path):
     """
     a = [  [i+l for l in k]  for i,j,k in os.walk('/home/deepak/Desktop/hackMyDuck/') if len(k) > 0 ]
     a = [ item for sublist in a for item in sublist]
+    a = sorted(a)
     return a     
 
 
@@ -102,3 +103,4 @@ def process_dir( dir_url, save_name= None, return_mapping  = True , sub_part_siz
         prepare_images( urls = part, save_name= save_name+ str(p_no))
         mapping[save_name+ str(p_no)] = part
         p_no += 1
+        
