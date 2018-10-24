@@ -3,6 +3,9 @@ import numpy as np
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences as pad 
 import json 
+import os 
+
+
 
 def parse_json(path, 
                save_name_cap_pairs = True, 

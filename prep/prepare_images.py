@@ -72,5 +72,33 @@ def prepare_images(urls = [],
     with open( save_name, 'wb') as fil :
         pickle.dump(obj = features, file = fil )
     
-    return features
 
+
+
+
+def list_dir(path):
+    """
+        given a path list the sH!zz out of em directories     
+    """
+    a = [  [i+l for l in k]  for i,j,k in os.walk('/home/deepak/Desktop/hackMyDuck/') if len(k) > 0 ]
+    a = [ item for sublist in a for item in sublist]
+    return a     
+
+
+def process_dir( dir_url, save_name= None, return_mapping  = True , sub_part_size = 10000):
+    """
+        return mapping : 
+            wheteher return mappnig b/w exported file and their content
+    """
+    if save_name == None :
+        save_name = dir_url.split( '/')[-1]
+        
+    all_files  = list_dir(dir_url)
+    parts  = chop_stuff( all_files,   size = sub_part_size )
+    p_no = 1
+    mapping = dict()
+    
+    for part in parts: 
+        prepare_images( urls = part, save_name= save_name+ str(p_no))
+        mapping[save_name+ str(p_no)] = part
+        p_no += 1
