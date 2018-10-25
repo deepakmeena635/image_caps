@@ -1,4 +1,3 @@
 #
-import prepare_images
-import prepare_text
+import prep 
 print("LOL! WELCOME")
