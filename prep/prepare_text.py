@@ -3,7 +3,7 @@ import numpy as np
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences as pad 
 import json 
-import os 
+import os
 
 
 
@@ -62,9 +62,7 @@ def clean_text(text , isArray=True):
         return X
     
 
-def prepare_text(text, to_pad = False, max_len= None, tok = None, save_name = None ):
-    
-    
+def prepare_text( text, to_pad = False, max_len = None, tok = None, save_name = None ):        
     """tips :
              tok is tokenizer:
                  pass tok as none while processing trainig data 

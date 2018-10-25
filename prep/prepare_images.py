@@ -11,8 +11,6 @@ class no_urls_given(Exception):
     print( "no urls given\n give atleast urls and/or dir_urls")
     pass 
 
-
-
 def prepare_vgg16():    
     print( 'downloading vgg 16 ')    
     from keras.applications.vgg16 import VGG16
@@ -80,13 +78,17 @@ def list_dir(path):
     """
         given a path list the sH!zz out of em directories     
     """
-    a = [  [i+l for l in k]  for i,j,k in os.walk('/home/deepak/Desktop/hackMyDuck/') if len(k) > 0 ]
+    a = [  [i+'/'+l for l in k]  for i,j,k in os.walk(path) if len(k) > 0 ]
     a = [ item for sublist in a for item in sublist]
     a = sorted(a)
     return a     
 
 
-def process_dir( dir_url, save_name= None, return_mapping  = True , sub_part_size = 10000, name_extension='.pkl' ):
+def process_dir( dir_url, 
+                save_name= None, 
+                return_mapping  = True , 
+                sub_part_size = 10000, 
+                name_extension='.pkl' ):
     """
         name extension must me with a dot '.'
         return mapping : 
@@ -104,5 +106,5 @@ def process_dir( dir_url, save_name= None, return_mapping  = True , sub_part_siz
         prepare_images( urls = part, save_name= save_name+ str(p_no)+name_extension)
         mapping[save_name+ str(p_no)] = part
         p_no += 1
-    
+
     return mapping 
