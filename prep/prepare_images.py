@@ -57,8 +57,8 @@ def prepare_images(urls = [],
 
 
     features = dict()  
-    print( "extracting_features")
-    for path in tqdm(urls): 
+#    print( "extracting_features")
+    for path in tqdm(urls, desc = 'extracting features'): 
         image = load_img( path, target_size=(224, 224))
         image = img_to_array(image)
         image = image.reshape((1, image.shape[0], image.shape[1], image.shape[2]))
