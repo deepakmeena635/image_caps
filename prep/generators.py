@@ -61,7 +61,7 @@ def coco_generator( mappings,
                     counter == 0 
             else :
                 print("features.shape, caption.shape",  features.shape, caption.shape)
-                yield np.array(features, caption), target
+                yield [[features, caption], target]
 
             if len(acc_caption) != 0:
                 yield [acc_features,acc_caption], acc_target
