@@ -17,15 +17,18 @@ def coco_generator( mappings,
                    dict_size,
                    max_len,
                    image_batch_szie = 1,  
-                   path_to_pkl_files = "." ):
+                   path_to_pkl_files = "." ,
+                   pkl_file_extension = '.pkl):
     
     acc_features = np.array([ ])
     acc_caption = np.array([ ])
     acc_target = np.array([ ])
     counter =0 
     
+    
     for pkl_file, image_subset in mappings.items():
-        with open(path_to_pkl_files+ '/' + pkl_file, 'rb') as file :
+        
+        with open(path_to_pkl_files+ '/' + pkl_file + pkl_file_extension , 'rb') as file :
             feature_dict = pickle.load( file )
 
         for image_name in image_subset:
