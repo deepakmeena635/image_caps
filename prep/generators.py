@@ -33,6 +33,7 @@ def coco_generator( mappings,
 
         for image_name in image_subset:
             
+            image_name = image_name.split('/')[-1]
             temp = []
             
             caption = captions[image_name]
