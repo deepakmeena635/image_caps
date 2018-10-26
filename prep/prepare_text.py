@@ -64,7 +64,7 @@ def clean_text(text , isArray=True):
         return X
     
 
-def process_text( text, to_pad = False, max_len = None, tok = None, save_name = None ):        
+def process_text( text, to_pad = False, max_len = None, tok = None, save_name = None, num_word = None ):        
     """tips :
              tok is tokenizer:
                  pass tok as none while processing trainig data 
@@ -83,7 +83,7 @@ def process_text( text, to_pad = False, max_len = None, tok = None, save_name = 
     clean_descs = [ i.split(' ') for i in clean_descs ]
     
     if tok ==None :
-        tok = Tokenizer()
+        tok = Tokenizer( num_words= num_word )
         tok.fit_on_texts( clean_descs )
     desc_seqs = tok.texts_to_sequences(clean_descs)
     

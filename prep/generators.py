@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import pickle 
 import numpy as np 
 from keras.preprocessing.sequence import pad_sequences as pad
@@ -10,6 +9,7 @@ def one_hot( i, dict_size):
         a = np.zeros(dict_size )
         a[i] = 1
     return a 
+
 
 
 def coco_generator( mappings, 
@@ -82,7 +82,6 @@ def create_coco_generator(mappings,
     """
 
     ## Get the number of steps give the batch_size
-    
     image_count = sum([len(i) for i in mappings.values()])
     steps = image_count//image_batch_size
     
