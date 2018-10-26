@@ -44,7 +44,7 @@ def coco_generator( mappings,
             target = [ one_hot(i, dict_size) for i in target ]
 
             features = feature_dict[ image_name ]   
-            features = features.repeat( len(caption), axis=0 )
+            features = (features.repeat( len(caption), axis=0 )).reshape(-1,1,4096)
             
             counter +=1 
 
