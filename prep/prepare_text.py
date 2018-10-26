@@ -6,15 +6,15 @@ import json
 import os
 
 
-
 def parse_json(path, 
                save_name_cap_pairs = True, 
-               save_name =  'name_cap_pairs'  ):
+               save_name =  'name_cap_pairs', rpwt = True  ):
     """
         returns : caption_id_dict: id to captions[] ,
         image_id_dict : id : file_name, 
         text : f_name '\t' desc \n * many (STRING )
-
+        ==========
+        rpwt : remove pairs having no '\t'
     """
     data = json.load( fp=open( path) )
     
@@ -31,8 +31,10 @@ def parse_json(path,
             
     text = '\n'.join([ '\t'.join([ image_id_dict[j], i] ) for i, j in caption_id_pairs])
     
-    if save_name_cap_pairs : 
+    if rpwt : 
+        text = '\n'.join([i for i in text.split('\n') if '\t' in i])
         
+    if save_name_cap_pairs:
         with open( save_name , 'w' ) as file: 
             file.write( text )
             
@@ -62,19 +64,17 @@ def clean_text(text , isArray=True):
         return X
     
 
-def prepare_text( text, to_pad = False, max_len = None, tok = None, save_name = None ):        
+def process_text( text, to_pad = False, max_len = None, tok = None, save_name = None ):        
     """tips :
              tok is tokenizer:
                  pass tok as none while processing trainig data 
             text :
                 should have line breaks and in each line there should be a '\t' 
                 also it should be a String
-                NAME : Caption formatted 
-                
+                NAME : Caption formatted                 
         return :
             tok: tokenizer,
             text_dict:
-
     """
     names = [ i.split('\t')[0] for i in text.split('\n')]
     descs = [ i.split('\t')[1] for i in text.split('\n')]
