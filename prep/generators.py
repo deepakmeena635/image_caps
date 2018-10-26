@@ -7,10 +7,17 @@ def validate_batch ():
     print('implement me' )
 
 
-def one_hot():
-    print('implement me now')
+def one_hot( i, dict_size):
+    if type(i) == type(0):
+        a = np.zeros(dict_size )
+        a[i] = 1
+    return a 
 
-def coco_generator( mappings, captions, image_batch_szie = 1 ):
+def coco_generator( mappings, 
+                   captions,                    
+                   dict_size,          #used for one hotting the target should be vocabularies size
+                   image_batch_szie = 1,  
+                   path_to_pkl_files = "" ):
 
     
     acc_features = np.array([ ])
@@ -18,10 +25,8 @@ def coco_generator( mappings, captions, image_batch_szie = 1 ):
     acc_target = np.array([ ])
     counter =0 
     for pkl_file, image_subset in mappings.items():
-        
-        with open(pkl_file, 'rb') as file :
+        with open(path_to_pkl_files+ '/' + pkl_file, 'rb') as file :
             feature_dict = pickle.load( file )
-        
 
         for image_name in image_subset:
                 
@@ -29,11 +34,12 @@ def coco_generator( mappings, captions, image_batch_szie = 1 ):
             caption = np.array( [ [  line[:i]  for  i  in range(1,len(line)) ] for line in caption])
 
             target = np.array([ [ [ [i] for i in line[1:] ] for line in caption] ])
-            target = [ i for i in target ]
+            target = [ one_hot(i, dict_size) for i in target ]
 
 
             features = feature_dict [ image_name ]   
             features = features.repeat(3, axis=0)
+            
             counter +=1 
 
             if image_batch_szie > 1 :
@@ -57,6 +63,7 @@ def coco_generator( mappings, captions, image_batch_szie = 1 ):
 
 def create_coco_generator(mappings,
                           captions,
+                          dict_size,
                           image_batch_size = 1):
     """
     inputs :
