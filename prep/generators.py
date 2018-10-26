@@ -17,7 +17,7 @@ def coco_generator( mappings,
                    dict_size,
                    max_len,
                    image_batch_szie = 1,  
-                   path_to_pkl_files = "" ):
+                   path_to_pkl_files = "." ):
     
     acc_features = np.array([ ])
     acc_caption = np.array([ ])
@@ -67,18 +67,16 @@ def coco_generator( mappings,
 def create_coco_generator(mappings,
                           captions,
                           dict_size,
+                          max_len, 
                           image_batch_size = 1):
-    
+
     """
-    inputs:
-        
+    inputs:        
         DICT mapping : a dict keeping pkl to  list of images inside,
         DICT image_name_image_features 
         DICT captions: image_file_name to all captions_sequences 
-        INT image_batch_size : number oF images every time theres a query
-    
+        INT image_batch_size : number oF images every time theres a query    
     return:
-        
         generator:
         total_steps:
     """
@@ -90,7 +88,6 @@ def create_coco_generator(mappings,
     
     if int(image_count//image_batch_size)< image_count/image_batch_size:
         steps += 1
-        generator = coco_generator( mappings, captions, image_batch_size  )
+        generator = coco_generator( mappings, captions, dict_size, image_batch_size  , max_len=max_len)
 
     return generator, steps
-
