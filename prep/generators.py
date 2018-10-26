@@ -18,7 +18,7 @@ def coco_generator( mappings,
                    max_len,
                    image_batch_szie = 1,  
                    path_to_pkl_files = "." ,
-                   pkl_file_extension = '.pkl):
+                   pkl_file_extension = '.pkl'):
     
     acc_features = np.array([ ])
     acc_caption = np.array([ ])
