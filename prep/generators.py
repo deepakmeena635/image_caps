@@ -50,9 +50,9 @@ def coco_generator( mappings,
             counter +=1 
 
             if image_batch_szie > 1 :
-                acc_features = np.append(acc_features,features)
-                acc_caption  = np.append(acc_caption,caption)
-                acc_target   = np.append(acc_target,target)
+                acc_features = np.append(acc_features,features, axis =0 )
+                acc_caption  = np.append(acc_caption,caption, axis =0 )
+                acc_target   = np.append(acc_target,target, axis =0 )
 
                 if counter == image_batch_szie :
                     yield [acc_features,acc_caption], acc_target
