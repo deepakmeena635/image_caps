@@ -41,7 +41,7 @@ def coco_generator( mappings,
             
             temp = []
             [ [ temp.append(i) for i in line[1:] ] for line in captions[image_name] ] 
-            temp = temp.ravel()
+            temp = np.ravel(temp)
             target = [ [one_hot(i, dict_size)] for i in temp ]
             
             features = feature_dict[ image_name ]   
