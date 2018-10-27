@@ -5,8 +5,7 @@ from keras.preprocessing.sequence import pad_sequences as pad
 
     
 def one_hot( i, dict_size):
-
-    a = np.zeros(shape = (1,dict_size))
+    a = np.zeros(dict_size)
     a[i] = 1
     return a 
 
@@ -42,7 +41,8 @@ def coco_generator( mappings,
             
             temp = []
             [ [ temp.append(i) for i in line[1:] ] for line in captions[image_name] ] 
-            target = [ one_hot(i, dict_size) for i in temp ]
+            temp = temp.ravel()
+            target = [ [one_hot(i, dict_size)] for i in temp ]
             
             features = feature_dict[ image_name ]   
             features = (features.repeat( len(caption), axis=0 )).reshape(-1,1,4096)
