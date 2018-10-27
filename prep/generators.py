@@ -19,9 +19,9 @@ def coco_generator( mappings,
                    path_to_pkl_files = "." ,
                    pkl_file_extension = '.pkl'):
     
-    acc_features = np.array([[[]]])
-    acc_caption = np.array([[]])
-    acc_target = np.array([[]])
+    acc_features = np.array([[[ 0 for i in range(4096)]]])
+    acc_caption = np.array([[ 0 for i in range(max_len) ]])
+    acc_target = np.array([[  0 for i in range(dict_size+1)]])
     counter =0 
     
     
@@ -55,11 +55,11 @@ def coco_generator( mappings,
                 acc_target   = np.append(acc_target,target, axis =0 )
 
                 if counter == image_batch_szie :
-                    yield [acc_features,acc_caption], acc_target
-                    acc_features = np.array([ ])
-                    acc_caption = np.array([ ])
-                    acc_target = np.array([ ])
-                    counter == 0 
+                    yield [acc_features[1:],acc_caption[1:]], acc_target[1:]
+                    acc_features = np.array([[[ 0 for i in range(4096)]]])
+                    acc_caption = np.array([[ 0 for i in range(max_len) ]])
+                    acc_target = np.array([[  0 for i in range(dict_size+1)]])
+                    counter =0 
             else :
                 yield [[features, caption], target]
 
