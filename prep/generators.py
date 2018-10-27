@@ -5,7 +5,7 @@ from keras.preprocessing.sequence import pad_sequences as pad
 
     
 def one_hot( i, dict_size):
-    a = np.zeros(dict_size)
+    a = np.zeros(dict_size+1)
     a[i] = 1
     return a 
 
