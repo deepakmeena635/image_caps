@@ -59,12 +59,13 @@ def coco_generator( mappings,
                     acc_features = np.array([[[ 0 for i in range(4096)]]])
                     acc_caption = np.array([[ 0 for i in range(max_len) ]])
                     acc_target = np.array([[  0 for i in range(dict_size+1)]])
-                    counter =0 
+                    counter =0
+                continue
             else :
                 yield [[features, caption], target]
 
-            if len(acc_caption) != 0:
-                yield [acc_features,acc_caption], acc_target
+    if len(acc_caption) > 1 :
+        yield [acc_features[1:],acc_caption[1:]], acc_target[1:]
 
 
 
