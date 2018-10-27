@@ -40,9 +40,9 @@ def coco_generator( mappings,
             caption = np.array( pad(  temp, maxlen = max_len, padding = 'post', value =0 ))
             
             temp = []
-            [ [ temp.append(i) for i in line[1:] ] for line in captions[image_name] ] 
-            temp = list(np.ravel(temp))
-            target = np.array([ [ one_hot(i, dict_size)] for i in temp ])
+            [ np.array([ temp.append(i) for i in line[1:] ]) for line in captions[image_name] ] 
+            temp = np.asarray( temp )
+            target = np.array( [ np.array([ one_hot(i, dict_size)]) for i in temp ])
             
             features = feature_dict[ image_name ]   
             features = (features.repeat( len(caption), axis=0 )).reshape(-1,1,4096)
