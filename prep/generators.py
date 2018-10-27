@@ -19,9 +19,9 @@ def coco_generator( mappings,
                    path_to_pkl_files = "." ,
                    pkl_file_extension = '.pkl'):
     
-    acc_features = np.array([ ])
-    acc_caption = np.array([ ])
-    acc_target = np.array([ ])
+    acc_features = np.array([[[]]])
+    acc_caption = np.array([[]])
+    acc_target = np.array([[]])
     counter =0 
     
     
