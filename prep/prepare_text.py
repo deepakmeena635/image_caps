@@ -105,5 +105,7 @@ def process_text( text, to_pad = False, max_len = None, tok = None, save_name = 
     if not save_name ==None : 
         with open(save_name, 'wb') as fil :
             pickle.dump(obj = text_dict, file = fil)
-    
+        with open(save_name+'tokenizer', 'wb') as fil :
+            pickle.dump(obj = tok, file = fil)
+
     return  tok, text_dict
