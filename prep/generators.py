@@ -76,7 +76,7 @@ def create_coco_generator(mappings,
                           captions,
                           dict_size,
                           max_len, 
-                          image_batch_size = 1):
+                          image_batch_size = 1, epochs = 1):
 
     """
     inputs:        
@@ -95,6 +95,6 @@ def create_coco_generator(mappings,
     
     if int(image_count//image_batch_size)< image_count/image_batch_size:
         steps += 1
-    generator = coco_generator( mappings, captions, dict_size, max_len, image_batch_size)
+    generator = coco_generator( mappings, captions, dict_size, max_len, image_batch_size, epochs )
 
     return generator, steps
