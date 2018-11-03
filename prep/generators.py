@@ -18,9 +18,9 @@ def coco_generator( mappings,
                    image_batch_szie = 1,  
                    path_to_pkl_files = "." ,
                    pkl_file_extension = '.pkl', 
-                   epochs =1 ):
-    
-    for i in range(epochs):
+                   epochs = 1):
+
+    for _ in range( epochs):
         acc_features = np.array([[[ 0 for i in range(4096)]]])
         acc_caption = np.array([[ 0 for i in range(max_len) ]])
         acc_target = np.array([[  0 for i in range(dict_size+1)]])
@@ -31,9 +31,8 @@ def coco_generator( mappings,
             
             with open(path_to_pkl_files+ '/' + pkl_file + pkl_file_extension , 'rb') as file :
                 feature_dict = pickle.load( file )
-    
+
             for image_name in image_subset:
-                
                 image_name = image_name.split('/')[-1]
                 temp = []
                 
@@ -69,14 +68,12 @@ def coco_generator( mappings,
         if len(acc_caption) > 1 :
             yield [acc_features[1:],acc_caption[1:]], acc_target[1:]
 
-
-
-
 def create_coco_generator(mappings,
                           captions,
                           dict_size,
                           max_len, 
-                          image_batch_size = 1, epochs = 1):
+                          image_batch_size = 1, 
+                          epochs = 1 ):
 
     """
     inputs:        
@@ -95,6 +92,6 @@ def create_coco_generator(mappings,
     
     if int(image_count//image_batch_size)< image_count/image_batch_size:
         steps += 1
-    generator = coco_generator( mappings, captions, dict_size, max_len, image_batch_size, epochs )
+    generator = coco_generator( mappings, captions, dict_size, max_len, image_batch_szie=image_batch_size, epochs = epochs )
 
     return generator, steps
