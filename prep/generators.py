@@ -22,8 +22,8 @@ def coco_generator( mappings,
 
 	for _ in range( epochs):
 		acc_features = np.array([[[ 0 for i in range(4096)]]])
-		acc_caption = np.array([[ 0 for i in range(max_len) ]])
-		acc_target = np.array([[  0 for i in range(dict_size+1)]])
+		acc_caption = np.array([[[ 0 for i in range(max_len) ]]])
+		acc_target = np.array([[[  0 for i in range(dict_size+1)]]])
 		counter =0 
 
 
@@ -63,8 +63,8 @@ def coco_generator( mappings,
 						acc_target   = acc_target.reshape(-1, 1 ,dict_size+1)
 						yield [acc_features[1:],acc_caption[1:]], acc_target[1:]
 						acc_features = np.array([[[ 0 for i in range(4096)]]])
-						acc_caption = np.array([[ 0 for i in range(max_len) ]])
-						acc_target = np.array([[  0 for i in range(dict_size+1)]])
+						acc_caption = np.array([[[ 0 for i in range(max_len) ]]])
+						acc_target = np.array([[[ 0 for i in range(dict_size+1)]]])
 						counter =0
 					continue
 				else :
