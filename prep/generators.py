@@ -47,7 +47,8 @@ def coco_generator( mappings,
 
 				features = feature_dict[ image_name ]   
 				features = (features.repeat( len(caption), axis=0 )).reshape(-1,1,4096)
-				#target = target.reshape( -1, 1 , dict_size) 
+				caption = caption.reshape( -1, 1 , max_len)
+				target = target.reshape( -1, 1 , dict_size+1) 
 
 				counter +=1 
 
@@ -57,6 +58,9 @@ def coco_generator( mappings,
 					acc_target   = np.append(acc_target,target, axis =0 )
 
 					if counter == image_batch_szie :
+						acc_features = acc_features.reshape( -1, 1, 4096)
+						acc_caption  = acc_caption.reshape(-1,1, max_len)
+						acc_target   = acc_target.reshape(-1, 1 ,dict_size+1)
 						yield [acc_features[1:],acc_caption[1:]], acc_target[1:]
 						acc_features = np.array([[[ 0 for i in range(4096)]]])
 						acc_caption = np.array([[ 0 for i in range(max_len) ]])
@@ -68,8 +72,8 @@ def coco_generator( mappings,
 
 		if len(acc_caption) > 1 :
 			acc_features = acc_features.reshape( -1, 1, 4096)
-#			acc_caption = acc_caption.reshape(-1, max_len)
-#			acc_target = acc_target.reshape(-1, 1 ,dict_size) 
+			acc_caption  = acc_caption.reshape(-1,1, max_len)
+			acc_target   = acc_target.reshape(-1, 1 ,dict_size+1)
 			yield [acc_features[1:],acc_caption[1:]], acc_target[1:]
 
 def create_coco_generator(mappings,
