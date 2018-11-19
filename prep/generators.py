@@ -30,7 +30,7 @@ def coco_generator( mappings,
 		for pkl_file, image_subset in mappings.items():
 
 		with open(path_to_pkl_files+ '/' + pkl_file + pkl_file_extension , 'rb') as file :
-		feature_dict = pickle.load( file )
+			feature_dict = pickle.load( file )
 
 		for image_name in image_subset:
 			image_name = image_name.split('/')[-1]
