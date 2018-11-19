@@ -65,12 +65,12 @@ def coco_generator( mappings,
                     continue
                 else :
                     yield [[features, caption], target]
-    
-        if len(acc_caption) > 1 :
+    	
+		if len(acc_caption) > 1 :
 			acc_features = acc_features.reshape( -1 1, 4096)
 			#			acc_caption = acc_caption.reshape(-1, max_len)
 			acc_target = acc_target.reshape(-1, 1 ,dict_size) 
-            yield [acc_features[1:],acc_caption[1:]], acc_target[1:]
+			yield [acc_features[1:],acc_caption[1:]], acc_target[1:]
 
 def create_coco_generator(mappings,
                           captions,
