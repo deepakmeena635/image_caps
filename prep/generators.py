@@ -33,23 +33,23 @@ def coco_generator( mappings,
                 feature_dict = pickle.load( file )
 
             for image_name in image_subset:
-				image_name = image_name.split('/')[-1]
-				temp = []
-
-				caption = captions[image_name]
-				[  [ temp.append( line[:i] )  for i in range( 1,len(line) ) ]  for line in caption ] 
-				caption = np.array( pad(  temp, maxlen = max_len, padding = 'post', value =0 ))
-
-				temp = []
-				[ np.array([ temp.append(i) for i in line[1:] ]) for line in captions[image_name] ] 
-				temp = np.asarray( temp )
-				target = np.array( [ np.array( one_hot(i, dict_size)) for i in temp ])
-
-				features = feature_dict[ image_name ]   
-				features = (features.repeat( len(caption), axis=0 )).reshape(-1,1,4096)
-				target = target.reshape( -1, 1 , dict_size) 
-
-				counter +=1 
+                image_name = image_name.split('/')[-1]
+                temp = []
+                
+                caption = captions[image_name]
+                [  [ temp.append( line[:i] )  for i in range( 1,len(line) ) ]  for line in caption ] 
+                caption = np.array( pad(  temp, maxlen = max_len, padding = 'post', value =0 ))
+                
+                temp = []
+                [ np.array([ temp.append(i) for i in line[1:] ]) for line in captions[image_name] ] 
+                temp = np.asarray( temp )
+                target = np.array( [ np.array( one_hot(i, dict_size)) for i in temp ])
+                
+                features = feature_dict[ image_name ]   
+                features = (features.repeat( len(caption), axis=0 )).reshape(-1,1,4096)
+                target = target.reshape( -1, 1 , dict_size) 
+				
+                counter +=1 
     
                 if image_batch_szie > 1 :
                     acc_features = np.append(acc_features,features, axis =0 )
@@ -57,12 +57,7 @@ def coco_generator( mappings,
                     acc_target   = np.append(acc_target,target, axis =0 )
     
                     if counter == image_batch_szie :
-                        
-                        acc_features = acc_features.reshape( -1 1, 4096)
-            #			acc_caption = acc_caption.reshape(-1, max_len)
-                        acc_target = acc_target.reshape(-1, 1 ,dict_size) 
                         yield [acc_features[1:],acc_caption[1:]], acc_target[1:]
-                        
                         acc_features = np.array([[[ 0 for i in range(4096)]]])
                         acc_caption = np.array([[ 0 for i in range(max_len) ]])
                         acc_target = np.array([[  0 for i in range(dict_size+1)]])
@@ -73,9 +68,9 @@ def coco_generator( mappings,
     
         if len(acc_caption) > 1 :
 			acc_features = acc_features.reshape( -1 1, 4096)
-			#			acc_caption = acc_caption.reshape(-1, max_len)
+#			acc_caption = acc_caption.reshape(-1, max_len)
 			acc_target = acc_target.reshape(-1, 1 ,dict_size) 
-			yield [acc_features[1:],acc_caption[1:]], acc_target[1:]
+            yield [acc_features[1:],acc_caption[1:]], acc_target[1:]
 
 def create_coco_generator(mappings,
                           captions,
