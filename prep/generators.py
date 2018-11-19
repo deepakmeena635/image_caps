@@ -12,11 +12,11 @@ def one_hot( i, dict_size):
 
 
 def coco_generator( mappings, 
-					captions,        #used for one hotting the target should be vocabularies size                 
+					captions,          #used for one hotting the target should be vocabularies size                 
 					dict_size,
 					max_len,
-					image_batch_szie = 1,  
-					path_to_pkl_files = "." ,
+					image_batch_szie =   1,  
+					path_to_pkl_files =  "." ,
 					pkl_file_extension = '.pkl', 
 					epochs = 1):
 
@@ -47,7 +47,7 @@ def coco_generator( mappings,
 
 				features = feature_dict[ image_name ]   
 				features = (features.repeat( len(caption), axis=0 )).reshape(-1,1,4096)
-				target = target.reshape( -1, 1 , dict_size) 
+				#target = target.reshape( -1, 1 , dict_size) 
 
 				counter +=1 
 
@@ -68,8 +68,8 @@ def coco_generator( mappings,
 
 		if len(acc_caption) > 1 :
 			acc_features = acc_features.reshape( -1, 1, 4096)
-			#			acc_caption = acc_caption.reshape(-1, max_len)
-			acc_target = acc_target.reshape(-1, 1 ,dict_size) 
+#			acc_caption = acc_caption.reshape(-1, max_len)
+#			acc_target = acc_target.reshape(-1, 1 ,dict_size) 
 			yield [acc_features[1:],acc_caption[1:]], acc_target[1:]
 
 def create_coco_generator(mappings,
